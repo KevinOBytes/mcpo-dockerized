@@ -1,0 +1,14 @@
+services:
+  mcpo:
+    build:
+      context: .
+      dockerfile: Dockerfile.podman
+    container_name: mcpo
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config.podman.json:/app/config.json   # dynamic mounting of config
+      - /var/run/docker.sock:/var/run/docker.sock # enables docker in docker usage
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
